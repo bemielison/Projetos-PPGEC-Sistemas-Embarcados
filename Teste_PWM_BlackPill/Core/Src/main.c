@@ -87,6 +87,13 @@ int main(void)
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
   /* USER CODE BEGIN 2 */
+  //definindo PWM
+ uint32_t frequency = 10;
+ uint32_t duty_cycle = 80;
+ uint32_t period_ms = 1000 / frequency;
+
+ uint32_t on_time = (period_ms * duty_cycle) / 100;
+ uint32_t off_time = period_ms - on_time;
 
   /* USER CODE END 2 */
 
@@ -94,7 +101,17 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   while (1)
   {
-    /* USER CODE END WHILE */
+	  //Liga GPIO durante On Time.
+		  HAL_GPIO_WritePin(GPIOC, GPIO_PIN_13, GPIO_PIN_SET );
+		  HAL_Delay(on_time);
+
+		  HAL_GPIO_WritePin(GPIOC, GPIO_PIN_13, GPIO_PIN_RESET );
+		  HAL_Delay(off_time);
+
+
+
+
+	  /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
   }
